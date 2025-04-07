@@ -26,6 +26,7 @@
   }
   html {
     color-scheme: dark;
+    background-color: #111111;
   }
 }
 
@@ -34,13 +35,12 @@ html {
 }
 
 .prose .anchor {
-  @apply absolute invisible no-underline;
-
   margin-left: -1em;
   padding-right: 0.5em;
   width: 80%;
   max-width: 700px;
   cursor: pointer;
+  visibility: hidden; /* Hide the anchor by default */
 }
 
 .anchor:hover {
@@ -52,12 +52,13 @@ html {
 }
 
 .prose .anchor:after {
-  @apply text-neutral-300 dark:text-neutral-700;
+  @apply text-neutral-400 dark:text-neutral-700;
   content: '#';
 }
 
 .prose *:hover > .anchor {
-  @apply visible;
+  visibility: visible; /* Show anchor on hover */
+  cursor: pointer; /* Change cursor to pointer */
 }
 
 .prose pre {
@@ -101,6 +102,13 @@ html {
 
 .prose h4 {
   @apply text-lg font-medium tracking-tight mt-6 mb-2;
+}
+
+.prose h1:hover,
+.prose h2:hover,
+.prose h3:hover,
+.prose h4:hover {
+  cursor: pointer;
 }
 
 .prose strong {
@@ -147,4 +155,11 @@ table {
 
 .title {
   text-wrap: balance;
+}
+blockquote {
+  border-left: 4px solid #ccc;
+  padding-left: 1em;
+  color: #666;
+  margin: 1em 0;
+  font-style: italic;
 }
