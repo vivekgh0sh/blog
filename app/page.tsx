@@ -7,7 +7,8 @@ export default function Page() {
         vivekgh0sh
       </h1>
       <p className="mb-4">
-        {`if you want to have a peak in my mind, congratulations you are in the right place!`}
+        {`if you want to have a peak in my mind, congratulations you are in the right place!
+        sharing my experiences sometimes technical othertimes philosophical`}
       </p>
       <div className="my-8">
         <BlogPosts />
