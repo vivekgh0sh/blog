@@ -1,0 +1,45 @@
+---
+title: "performing digital forensics"
+publishedAt: "2025-05-11"
+---
+
+this is a ctf challenge from [tryhackme](https://tryhackme.com/room/securityfootage)
+
+## task : someone broke into our office last night, but they destroyed the hard drives with the security footage. can you recover the footage?
+and we got a packet capture file named `securityfootage.pcap`
+
+opened the packet capture file in wireshark, and check the protocol hierarchy. As we can see there are 1108 TCP packets and 1 HTTP packet.
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+<img src="https://i.postimg.cc/0xJymQnZ/1.jpg" alt="hierarchy" />
+</div>
+
+okay so the next thing i tried was to see if there was an export objects available file → export objects → http
+
+there was no files in the export objects
+
+i started to skim throught the hex dump data to look for clues . . .
+and as we can see from the highlighted area content-type: image/jpeg
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+<img src="https://i.postimg.cc/DhNz8sr8/2.jpg" alt="hierarchy" />
+</div>
+
+now i filter only the packets containing image by using `tcp contains "JFIF"`
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+<img src="https://i.postimg.cc/FrwF85rj/3.jpg" alt="hierarchy" />
+</div>
+
+we got 541 packets that contain images
+
+first lets look at the MIME magic number of JPEG [here](https://www.iana.org/assignments/media-types/image/jpeg)
+
+now we just have to copy the hex stream by right clicking on the hex dump and convert the hex to image format
+
+there are many ways to convert from hex to jpeg, i am using an [online converter](https://capitalizemytitle.com/hex-to-image-converter/) (note we should first get rid of the header values first i.e everything before `FF D8 FF` otherwise the image will not be converted)
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+<img src="https://i.postimg.cc/1z6tKw4N/extracted-image.jpg" alt="hierarchy" />
+</div>
+
+this is the image i got from converting the second packet, we can contiue converting the packets by a interval of 100 packets to get the rest of the flag
+
+
+<div style={{ marginTop: '50px' }} />
